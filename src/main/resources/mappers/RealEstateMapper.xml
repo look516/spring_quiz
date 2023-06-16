@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quiz.lesson03.dao.RealEstateMapper">
+	<select id="selectRealEstateById" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
+		SELECT
+			`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`real_estate`
+		WHERE
+			`id` = #{id}
+	</select>
+	
+	<select id="selectRealEstateListByRentPrice" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
+	<!-- 만약 parameterType이 여러 개고 다른 타입이면?
+	같은 RealEstateMapper산하에 있기 때문에 mapper 안쪽에 select문들 쓰자.
+	재활용되는 select문이 좋으므로 전체 컬럼을 갖고 와서 java에서 걸러내자. -->
+		SELECT
+			`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`real_estate`
+		WHERE
+			<!-- `rentPrice` &lt; #{rentPrice} -->
+			<!-- < : &lt; / > : &gt; / html태그에서 공백 : &nbsp; -->
+			<![CDATA[
+			`rentPrice` < #{rentPrice}
+			]]>
+	</select>
+	
+</mapper>
