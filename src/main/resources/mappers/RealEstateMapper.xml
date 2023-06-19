@@ -44,4 +44,102 @@
 			]]>
 	</select>
 	
+	<select id="selectRealEstateListByAreaAndPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
+		SELECT
+			`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`real_estate`
+		WHERE
+			<![CDATA[
+			`type` = '매매'
+			AND `area` >= #{area}
+			AND `price` <= #{price}
+			]]>
+		ORDER BY
+			`id` DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.domain.RealEstate">
+		INSERT INTO `real_estate`
+    	(
+    		`realtorId`
+            , `address`
+            , `area`
+            , `type`
+            , `price`
+            , `rentPrice`
+            , `createdAt`
+            , `updatedAt`
+    	)
+    	VALUES
+    	(
+    		#{realtorId}
+    		, #{address}
+    		, #{area}
+    		, #{type}
+    		, #{price}
+    		, #{rentPrice} <!-- 객체에서 null이므로 자동 null로 들어간다. 재활용을 위해 모든 행을 채운다. -->
+    		, NOW()
+    		, NOW()
+    	)
+	</insert>
+	
+	
+	
+	
+	<insert id="insertRealEstateAsField" parameterType="map">
+		INSERT INTO `real_estate`
+    	(
+    		`realtorId`
+            , `address`
+            , `area`
+            , `type`
+            , `price`
+            , `rentPrice`
+            , `createdAt`
+            , `updatedAt`
+    	)
+    	VALUES
+    	(
+    		#{realtorId}
+    		, #{address}
+    		, #{area}
+    		, #{type}
+    		, #{price}
+    		, #{rentPrice}
+    		, NOW()
+    		, NOW()
+    	)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	<update id="updateRealEstateById" parameterType="map">
+	UPDATE `real_estate`
+	SET
+		`type` = #{type}
+		, `price` = #{price}
+		, `updatedAt` = NOW()
+	WHERE
+		`id` = #{id}
+	</update>
+	
 </mapper>
