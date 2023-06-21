@@ -48,8 +48,16 @@ public class RealEstateBO {
 	
 	
 	
-	
+	// input: id, type, price
+	// output: int
 	public int updateRealEstateById(int id, String type, int price) {
 		return realEstateMapper.updateRealEstateById(id, type, price);
+	}
+	
+	
+	
+	public void deleteRealEstateById(int id) {
+		realEstateMapper.deleteRealEstateById(id);
+		// int로 돌아오나 쓸 거면 int row로 저장, 안 쓸 거면 호출만 하면 됨
 	}
 }
