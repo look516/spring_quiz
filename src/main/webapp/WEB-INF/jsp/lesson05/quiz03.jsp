@@ -35,7 +35,7 @@
 		</table>
 		
 		
-		<!-- 오류 수정 필수 -->
+		
 		<h1>2. 카드 명세서</h1>
 		<table class="table text-center">
 			<thead>
@@ -53,7 +53,7 @@
 						<td><fmt:formatNumber value="${cardBill.pay}" type="currency" /></td>
 						<td>
 							<%-- string to date: fmt:parseDate 현재 string의 형태를 pattern에 --%>
-							<fmt:parseDate value="${bill.date}" pattern="yyyy-MM-dd" var="date"/>
+							<fmt:parseDate value="${cardBill.date}" pattern="yyyy-MM-dd" var="date"/>
 							<%-- date to string: fmt:formatDate --%>
 							<fmt:formatDate value="${date}" pattern="yyyy년 M월 dd일"/>
 						</td>
