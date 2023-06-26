@@ -36,13 +36,24 @@
 							${member.phoneNumber}
 						</c:when>
 						<c:otherwise>
-							유효하지 않은 번호입니다.
+							유효하지 않은 전화번호
 						</c:otherwise>
 					</c:choose>
 					</td>
 					<td>${fn:replace(member.nationality, "시대", " -")}</td>
-					<td>${member.email}</td>
-					<td>${member.introduce}</td>
+					<td>
+					<b>${fn:split(member.email, '@')[0]}</b>@${fn:split(member.email, '@')[1]}
+					</td>
+					<td>
+					<c:choose>
+						<c:when test="${fn:length(fn:substring(member.introduce, 0, 15)) <= 15}">
+							${fn:substring(member.introduce, 0, 15)}
+						</c:when>
+						<c:otherwise>
+							${fn:substring(member.introduce, 0, 15)}...
+						</c:otherwise>
+					</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 			</tbody>
