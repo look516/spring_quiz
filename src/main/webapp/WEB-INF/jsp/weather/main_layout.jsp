@@ -15,15 +15,15 @@
 </head>
 <body>
 	<div id="wrap">
-		<section class="contents bg-danger d-flex">
-			<nav class="bg-info col-2">
+		<div class="contents d-flex">
+			<nav class="col-2">
 				<jsp:include page="menu.jsp" />
 			</nav>
-			<section class="content bg-success col-10">
+			<section class="weather-history col-10 mt-3 ml-5">
 				<jsp:include page="main.jsp" />
 			</section>
-		</section>
-		<footer class="bg-warning">
+		</div>
+		<footer class="d-flex align-items-center">
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>

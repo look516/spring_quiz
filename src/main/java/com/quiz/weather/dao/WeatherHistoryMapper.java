@@ -9,4 +9,6 @@ import com.quiz.weather.domain.WeatherHistory;
 @Repository
 public interface WeatherHistoryMapper {
 	public List<WeatherHistory> selectWeatherHistory();
+	
+	public void insertWeatherHistory(WeatherHistory weatherHistory);
 }

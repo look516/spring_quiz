@@ -1,16 +1,20 @@
 package com.quiz.weather;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.quiz.lesson04.domain.Realtor;
 import com.quiz.weather.bo.WeatherHistoryBO;
 import com.quiz.weather.domain.WeatherHistory;
 
@@ -22,43 +26,30 @@ public class WeatherHistoryController {
 	private WeatherHistoryBO weatherHistoryBO;
 	
 	@GetMapping("/weather_view")
-	public String weatherHistory(Model model) {
-		
+	public String weatherView(Model model) {
+		// db select
 		List<WeatherHistory> history = weatherHistoryBO.getWeatherHistory();
-
 		model.addAttribute("history", history);
 		
 		return "weather/main_layout";
 	}
 	
-	@GetMapping("/add_weather_history")
-	public String addWeatherHistory() {
-		
+	@GetMapping("/add_weather_view")
+	public String addWeatherView() {
 		// 화면뿌리기
 		return "weather/saveWeather_layout";
 	}
 	
-	@PostMapping("/after_add_weather_history")
-	public String afterAddWeatherHistory(
-			@RequestParam("date") Date date,
-			@RequestParam("weather") String weather,
-			@RequestParam("temperatures") double temperatures,
-			@RequestParam("precipitation") double precipitation,
-			@RequestParam("microDust") String microDust,
-			@RequestParam("windSpeed") double windSpeed,
-			Model model) {
-		WeatherHistory thisWeather = null;
-		thisWeather.setDate(date);
-		thisWeather.setWeather(weather);
-		thisWeather.setTemperatures(temperatures);
-		thisWeather.setPrecipitation(precipitation);
-		thisWeather.setMicroDust(microDust);
-		thisWeather.setWindSpeed(windSpeed);
+	@PostMapping("/add_weather")
+	public String addWeather(
+			// 1. Date로 받아오기
+			@ModelAttribute WeatherHistory thisWeather
+			/*, Model model*/) {
 		
-		model.addAttribute("thisWeather", thisWeather);
+		//model.addAttribute("thisWeather", thisWeather);
 		// db insert
-		
+		weatherHistoryBO.addWeatherHistory(thisWeather);
 		// 메인으로 redirect
-		return "weather/afterSaveWeather";
+		return "redirect:/weather/weather_view";
 	}
 }
