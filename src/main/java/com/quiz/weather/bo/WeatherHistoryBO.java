@@ -21,4 +21,10 @@ public class WeatherHistoryBO {
 	public void addWeatherHistory(WeatherHistory weatherHistory) {
 		weatherHistoryMapper.insertWeatherHistory(weatherHistory);
 	}
+	
+	/*public void addWeatherHistory(Date date, String weather, String microDust,
+			double temperatures, double precipitation, double windSpeed) {
+		weatherHistoryMapper.insertWeatherHistory(date, weather, microDust,
+				temperatures, precipitation, windSpeed);
+	}*/
 }

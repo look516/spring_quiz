@@ -22,6 +22,7 @@
 			<div class="input-label">날짜</div>
 			<input type="text" class="form-control" id="date" name="date">
 		</div>
+		
 		<div class="d-flex align-items-center">
 			<div class="input-label">날씨</div>
 			<select class="form-control" name="weather">

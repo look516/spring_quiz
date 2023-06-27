@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+header {height: 100px;}
+.contents{min-height: 500px;}
+footer {height: 100px;}
+.header-font{font-size:40px; color:#fff;}
+.store-info-font{color:#000;}
+.store-info-font:hover{text-decoration:none; color:#999;}

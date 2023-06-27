@@ -11,11 +11,8 @@
 </div>
  -->
  <ul class="nav flex-column mt-4">
-	<li class="nav-item"><a href="/weather/weather_view"
-		class="nav-link menu-font">날씨</a></li>
-	<li class="nav-item"><a href="/weather/add_weather_view"
-		class="nav-link menu-font">날씨입력</a></li>
+	<li class="nav-item"><a href="/weather/weather_view" class="nav-link menu-font">날씨</a></li>
+	<li class="nav-item"><a href="/weather/add_weather_view" class="nav-link menu-font">날씨입력</a></li>
 	<li class="nav-item"><a href="#" class="nav-link menu-font">테마날씨</a></li>
-	<li class="nav-item"><a href="#" class="nav-link menu-font">관측
-			기후</a></li>
+	<li class="nav-item"><a href="#" class="nav-link menu-font">관측 기후</a></li>
 </ul>

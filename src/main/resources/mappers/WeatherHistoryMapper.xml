@@ -18,7 +18,7 @@
 </select>
 
 
-<insert id="insertWeatherHistory" parameterType="com.quiz.weather.domain.WeatherHistory">
+<insert id="insertWeatherHistory" parameterType="com.quiz.weather.domain.WeatherHistory"> <!-- parameter 하나씩 받아올 때는 map -->
 	INSERT INTO `weather_history`
 	(
 		`date`
