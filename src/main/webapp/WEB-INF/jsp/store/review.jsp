@@ -23,18 +23,44 @@
 		</header>
 		
 		<section class="contents">
-			<div class="display-4"> - 리뷰</div>
-			<%--<c:forEach items="${storeList}" var="store">
-			<a href="#" class="store-info-font">
-				<div class="border border-info my-3">
-					<div class="m-2">
-						<div>${store.name}</div>
-						<div>전화번호: ${store.phoneNumber}</div>
-						<div>주소: ${store.address}</div>
+			<div class="display-4">${storeName} - 리뷰</div>
+			<c:if test="${reviewList[0] eq null}">
+				<div class="ml-4 mt-4 none-review-font">작성된 리뷰가 없습니다.</div>
+			</c:if>
+			<c:forEach items="${reviewList}" var="review">
+				<div class="border border-info my-3 p-2">
+					<div>
+						${review.userName}
+						${review.point}
+						<%-- 0 5 10 15 20 25 30 35 40 45 50 --%>
+						<c:choose>
+							<c:when test="${review.point % 1 eq 0}">
+								<c:forEach begin="0" end="${review.point / 1 - 1}">
+									<img src="/image/review/star_fill.png" alt="1점" width='20px'>
+								</c:forEach>
+								<c:forEach begin="1" end="${5 - review.point / 1}">
+									<img src="/image/review/star_empty.png" alt="0점" width='20px'>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<c:forEach begin="0" end="${review.point / 1 - 1}">
+									<img src="/image/review/star_fill.png" alt="1점" width='20px'>
+								</c:forEach>
+								<img src="/image/review/star_half.png" alt="0.5점" width='20px'>
+								<c:forEach begin="1" end="${5 - review.point / 1}">
+									<img src="/image/review/star_empty.png" alt="0점" width='20px'>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+						
+						
+						
 					</div>
+					<div><fmt:formatDate value="${review.createdAt}" pattern="yyyy년 MM월 dd일"/></div>
+					<div>${review.review}</div>
+					<span class="bg-secondary">${review.menu}</span>
 				</div>
-			</a>
-			</c:forEach> --%>
+			</c:forEach>
 		</section>
 		
 		<footer>

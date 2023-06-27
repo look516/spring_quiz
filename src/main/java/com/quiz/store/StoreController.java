@@ -20,25 +20,27 @@ public class StoreController {
 	
 	@Autowired
 	private storeBO storeBo;
+	
+	@Autowired // 꼭 각각 걸어줄 것!!!!!!!!!!!!!!
 	private ReviewBO reviewBO;
 	
 	@GetMapping("/store_view")
 	public String storeView(Model model) {
 		List<store> storeList = storeBo.getStoreList();
 		model.addAttribute("storeList", storeList);
-		return "/store/store";
+		return "store/store";
 	}
 	
 	@GetMapping("/review")
 	public String reviewView(
-			@RequestParam("storeId") int id,
+			@RequestParam("storeId") int id, // 주소에서 storeId query로 들어온다
 			@RequestParam("storeName") String storeName,
 			Model model) {
 		// select
 		List<Review> reviewList = reviewBO.getReviewList(id);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("storeName", storeName);
-		return "/store/review";
+		return "store/review";
 	}
 	
 	
