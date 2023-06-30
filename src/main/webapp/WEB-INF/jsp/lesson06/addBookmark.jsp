@@ -36,12 +36,17 @@
 			
 			
 			<div class="form-group">
-				<label for="url">주소</label>
-				<div class="d-flex">
-					<input type="text" id="url" name="url" class="form-control">
+				<label for="url">URL 주소</label>
+				<div class="form-inline">
+					<input type="text" id="url" class="form-control col-10">
 					<input type="button" id="urlCheckBtn" class="btn btn-info ml-3" value="중복확인">
 				</div>
-				<small id="urlStatusArea"></small>
+				<!-- 방법 1 -->
+				<small id="duplicationText" class="text-danger d-none">중복된 url입니다.</small>
+				<small id="availableText" class="text-success d-none">저장 가능한 url입니다.</small>
+				<!--
+				방법 2
+				<small id="urlStatusArea"></small> -->
 			</div>
 			
 			
@@ -79,6 +84,17 @@
 			
 			
 			
+			
+			// QUIZ 2) 중복 확인 체크
+			if ($('#availableText').hasClass('d-none')) { // 잘못된 경우 (availableText d-none인 경우)
+				alert("중복된 url입니다. 다시 확인해주세요");
+				return;
+				
+			}
+			
+		
+		
+		
 			// 서버 요청(AJAX 통신)
 			// ajax는 그냥 그 페이지에 머물러있는다
 			$.ajax({ // 딕셔너리로 구성
@@ -126,14 +142,44 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		// 중복확인 버튼 클릭
+		// QUIZ 2-1) 중복확인
 		$('#urlCheckBtn').on('click', function() {
+			//alert("중복확인");
+			let url = $('#url').val().trim();
+			
+			// validation
+			if (!url) {
+				alert("검사할 url을 입력해주세요.");
+				return; // 클릭 이벤트 시 수행되는 아래 코드를 수행시키지 않는다.
+			}
+			
+			// AJAX 통신 => DB URL 존재 여부
+			$.ajax({
+				// request
+				type:"POST"
+				, url:"/lesson06/quiz01/is_duplication_url"
+				, data:{"url":url}
+			
+				// response
+				, success:function(data) {
+					// {"code":1, "isDuplication":true}
+					if (data.isDuplication) { // 중복 // result.put의 키명과 동일해야 함
+						$('#duplicationText').removeClass('d-none');
+						$('#availableText').addClass('d-none');
+					} else { // 중복 X
+						$('#duplicationText').addClass('d-none');
+						$('#availableText').removeClass('d-none');
+					}
+				}
+			});
+		});
+		
+		
+		
+		
+		
+		// 내 중복확인 답안
+		/* $('#urlCheckBtn').on('click', function() {
 			// 한번만 출력
 			$('#urlCheckBtn').empty();
 			
@@ -159,10 +205,7 @@
 					alert("중복 확인에 실패했습니다.");
 				}
 			});
-			
-			
-			
-		});
+		}); */
 		
 	});
 </script>

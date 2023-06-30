@@ -25,11 +25,19 @@ public class BookmarkBO {
 	
 	
 	
+	// 2
 	
+	public Bookmark getBookmarkByUrl(String url) {
+		return bookmarkMapper.selectBookmarkByUrl(url);
+	}
 	
+	/*
+	 public boolean existBookmarkByUrl(String url) {
+	 	return bookmarkMapper.existBookmarkByUrl(url);
+	 }
+	 */
 	
-	
-	public boolean existBookmarkByUrl(String url) {
-		return bookmarkMapper.existBookmarkByUrl(url);
+	public int deleteBookmarkById(int id) {
+		return bookmarkMapper.deleteBookmarkById(id);
 	}
 }

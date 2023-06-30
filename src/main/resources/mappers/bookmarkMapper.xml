@@ -48,14 +48,35 @@
 	
 	
 	
-	<select id="existBookmarkByUrl" parameterType="string" resultType="boolean">
+	<!-- <select id="existBookmarkByUrl" parameterType="string" resultType="boolean">
 		SELECT
 			COUNT(1)
 		FROM
 			`bookmark`
 		WHERE
 			`url` = #{url}
+	</select> -->
+	
+	<select id="selectBookmarkByUrl" parameterType="string" resultType="com.quiz.lesson06.domain.Bookmark">
+		SELECT
+			`id`
+			, `name`
+			, `url`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`bookmark`
+		WHERE
+			`url` = #{url} <!-- 만약 중복되는 것이 있다면 에러남 -->
 	</select>
+	
+	<delete id="deleteBookmarkById" parameterType="int">
+		DELETE
+		FROM
+			`bookmark`
+		WHERE
+			`id` = #{id}
+	</delete>
 	
 
 </mapper>
