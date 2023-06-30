@@ -21,4 +21,15 @@ public class BookmarkBO {
 	public List<Bookmark> getBookmarkList() {
 		return bookmarkMapper.selectBookmarkList();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public boolean existBookmarkByUrl(String url) {
+		return bookmarkMapper.existBookmarkByUrl(url);
+	}
 }

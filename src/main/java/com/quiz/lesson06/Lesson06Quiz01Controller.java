@@ -1,10 +1,13 @@
 package com.quiz.lesson06;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,27 +24,33 @@ public class Lesson06Quiz01Controller {
 	private BookmarkBO bookmarkBO;
 	
 	// 추가 화면
-	@RequestMapping("/add_bookmark_view")
+	@GetMapping("/add_bookmark_view")
 	public String addBookmarkView() {
 		return "lesson06/addBookmark";
 	}
 	
-	// db insert
-	@PostMapping("add_bookmark")
+	// db insert (AJAX의 요청)
+	@PostMapping("/add_bookmark")
 	@ResponseBody
-	public String addBookmark(
+	public Map<String, Object> addBookmark(
 			@RequestParam("name") String name,
 			@RequestParam("url") String url) {
 		
 		// 실제 insert
 		bookmarkBO.addBookmarkList(name, url);
 		
-		// return string
-		return "성공";
+		// 응답
+		// {"code":1, "result":"성공"}	// JSON String
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 1);
+		result.put("result", "성공");
+		
+		// return JSON string
+		return result;
 	}
 	
 	// 결과 화면
-	@RequestMapping("/after_add_bookmark_view")
+	@GetMapping("/after_add_bookmark_view")
 	public String afterAddBookmarkView(Model model) {
 		
 		// db select
@@ -49,5 +58,37 @@ public class Lesson06Quiz01Controller {
 		model.addAttribute("bookmarkList", bookmarkList);
 		
 		return "lesson06/afterAddBookmark";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// QUIZ 02
+	
+	@ResponseBody
+	@RequestMapping("/is_dupication")
+	public Map<String, Boolean> isDuplication(
+			@RequestParam("url") String url) {
+		
+		// db 조회
+		boolean existUrl = bookmarkBO.existBookmarkByUrl(url);
+				
+		//
+		Map<String, Boolean> result = new HashMap<>();
+		result.put("isDuplication", existUrl);
+		return result;
 	}
 }

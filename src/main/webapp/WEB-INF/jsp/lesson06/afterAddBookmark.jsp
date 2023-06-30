@@ -12,24 +12,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h1>즐겨찾기 목록</h1>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>No.</th>
-				<th>이름</th>
-				<th>주소</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${bookmarkList}" var="bookmark" varStatus="status">
+	<div class="container">
+		<h1>즐겨찾기 목록</h1>
+		<table class="table">
+			<thead>
 				<tr>
-					<td>${status.count}</td>
-					<td>${bookmark.name}</td>
-					<td>${bookmark.url}</td>
+					<th>No.</th>
+					<th>이름</th>
+					<th>주소</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach items="${bookmarkList}" var="bookmark">
+					<tr>
+						<td>${bookmark.id}</td>
+						<td>${bookmark.name}</td>
+						<td>${bookmark.url}</td> <%-- a 태그 추가 --%>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
