@@ -14,20 +14,22 @@
 <link rel="stylesheet" href="/css/booking/style.css" type="text/css">
 </head>
 <body>
-	<div id="wrap" class="container">
-		<header class="d-flex justify-content-center align-items-center">
+	<div class="container">
+		<header class="d-flex align-items-center justify-content-center bg-danger">
 			<div class="display-4">통나무 팬션</div>
 		</header>
-		<nav>
-			<ul class="nav nav-fill">
-				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
-				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="/booking/add_booking_list_view" class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="/booking/booking_list_view" class="nav-link text-white font-weight-bold">예약목록</a></li>
-			</ul>
-		</nav>
-		<section class="contents">
-			<h2 class="text-center font-weight-bold m-4">예약 목록 보기</h2>
+		<nav class="bg-primary">
+            <ul class="nav nav-fill">
+                <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약하기</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약목록</a></li>
+            </ul>
+        </nav>
+		<section class="contents bg-warning">
+			<div class="d-flex align-items-center justify-content-center py-2">
+				<h1>예약 목록 보기</h1>
+			</div>
 			<table class="table text-center">
 				<thead>
 					<tr>
@@ -56,46 +58,17 @@
 								<span class="text-success">${booking.state}</span>
 							</c:if>
 						</td>
-						<td><button type="button" class="del-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button></td>
+						<td><button type="button" class="btn btn-danger">삭제</button></td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 		</section>
-		<footer>
-			<div class="text-secondary"> 
-				<div><small>제주특별자치도 제주시 애월읍</small></div>
-				<div><small>사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표:김통목</small></div> 
-				<div><small>Copyright 2025 tongnamu. All right reserved.</small></div>
-			</div>
+		<footer class="bg-info">
+			<div>제주특별자치도 제주시 애월읍</div>
+			<div>사업자등록번호 111-22-333333 / 농어촌민박사업자지정 / 대표:통나무</div>
+			<div>Copyright 2023 tongnamu. All right reserved.</div>
 		</footer>
 	</div>
-	
-	<script>
-		$(document).ready(function() {
-			$('.del-btn').on('click', function() {
-				let id = $(this).data('booking-id');
-				
-				$.ajax({
-					// request
-					type:"delete"
-					, url:"/booking/delete_booking"
-					, data:{"bookingId":id}
-				
-					//response
-					, success:function(data) {
-						if (data.code == 1) {
-							location.reload(true);
-						} else {
-							alert(data.errorMessage);
-						}
-					}
-					, error:function(request, status, error) {
-						alert("삭제에 실패했습니다.");
-					}
-				});
-			});
-		});
-	</script>
 </body>
 </html>

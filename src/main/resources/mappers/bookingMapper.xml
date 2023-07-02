@@ -17,4 +17,57 @@
 		FROM
 			`booking`
 	</select>
+	
+	<delete id="deleteBookingById" parameterType="int">
+		DELETE
+		FROM
+			`booking`
+		WHERE
+			`id` = #{id}
+	</delete>
+	
+	<insert id="insertBookingList" parameterType="map">
+		INSERT INTO `booking`
+		(
+			`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{name}
+			, #{headcount}
+			, #{day}
+			, #{date}
+			, #{phoneNumber}
+			, "대기중" <!-- 추후 상태 변경 구문도 작성 -->
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	
+	<select id="selectBookingByNameAndPhoneNumber" parameterType="map" resultType="com.quiz.booking.domain.Booking">
+		SELECT
+			`id`
+			,`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`booking`
+		WHERE
+			`phoneNumber` = #{phoneNumber}
+		AND
+			`name` = #{name} 
+	</select>
 </mapper>
