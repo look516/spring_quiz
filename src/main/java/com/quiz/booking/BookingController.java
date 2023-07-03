@@ -88,7 +88,7 @@ public class BookingController {
 
 	
 	// 조회 페이지
-	// 예약 상태를 변경할 수 있는 로직
+	// 예약 상태를 변경할 수 있는 로직(update)
 	// 이름 및 전화번호가 중복될 경우 두 개 이상의 데이터를 출력하는 로직?
 	// 어차피 코드가 진행됐다는 것은 null이 아니라는 것이므로 조회할 데이터가 없을 때는 자동으로 error function이 수행되는 건지
 	// 아니면 else문으로 alert(data.errorMessage)로 구분해야 하는 건지
@@ -115,7 +115,7 @@ public class BookingController {
 			result.put("code", 1);
 			result.put("result", "성공");
 			result.put("name", booking.getName());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 dd일");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String date = sdf.format(booking.getDate());
 			result.put("date", date);
 			result.put("day", booking.getDay());

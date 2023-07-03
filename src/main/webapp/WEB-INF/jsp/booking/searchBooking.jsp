@@ -110,8 +110,8 @@
 								//location.href = "/booking/search_booking_view";
 								alert("이름: " + data.name
 										+"\n날짜: " + data.date
-										+"\n숙박일수: " + data.day
-										+"\n예약인원: " + data.headcount 
+										+"\n일수: " + data.day
+										+"\n인원: " + data.headcount 
 										+"\n상태: " + data.state);
 							} else {
 								alert(data.errorMessage);
