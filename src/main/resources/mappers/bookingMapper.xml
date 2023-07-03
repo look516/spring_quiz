@@ -67,7 +67,9 @@
 			`booking`
 		WHERE
 			`phoneNumber` = #{phoneNumber}
-		AND
-			`name` = #{name} 
+			AND `name` = #{name}
+			<!-- 중복 시
+			1) order by limit 이용해 최신 것 하나만 가져오는 방법
+			2) list로 리턴이 될 수도 있는 상황 -->
 	</select>
 </mapper>

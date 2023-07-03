@@ -37,7 +37,7 @@
 			<div class="d-flex justify-content-center">
 				<div class="reservation-box">
 					<div class="subject-text my-2 font-weight-bold">이름</div>
-					<input type="text" class="form-control" id="name">
+					<input type="text" class="form-control" id="name"> <!-- id 대신 name 써도 됨 -->
 
 					<div class="subject-text my-2 font-weight-bold">예약날짜</div>
 					<input type="text" class="form-control" id="date">
@@ -68,17 +68,18 @@
 	<script>
 		$(document).ready(function() {
 			// datepicker
-			$('#date').datepicker({
-				changeMonth: true,
-				changeYear: true,
-				dateFormat: "yy-mm-dd"
+			$('#date').datepicker({ // name이라면 $('input[name=date]')으로 하면 됨
+				changeMonth: true
+				,changeYear: true
+				,dateFormat: "yy-mm-dd"
+				, minDate:0
 			});
 			
 			// 예약버튼
 			$("#reservationBtn").on('click', function() {
 				
 				let name = $("#name").val().trim();
-				let date = $("#date").val();
+				let date = $("#date").val(); // string
 				let day = $("#day").val().trim();
 				let headcount = $("#headcount").val().trim();
 				let phoneNumber = $("#phoneNumber").val().trim();
@@ -89,13 +90,18 @@
 					return;
 				}
 				
-				if (date == "") {
-					alert("예약날짜를 입력하세요");
+				if (date.length < 1) {
+					alert("예약날짜를 선택하세요");
 					return;
 				}
 				
-				if (day == "") {
+				if (!day) {
 					alert("숙박일수를 입력하세요");
+					return;
+				}
+				
+				if (isNaN(day)) { // 숫자가 아닐 때 참 (or 비밀번호 암호 정규식 사용하면 됨)
+					alert("숙박일수는 숫자만 입력 가능합니다.");
 					return;
 				}
 				
@@ -104,22 +110,32 @@
 					return;
 				}
 				
+				if (isNaN(headcount)) {
+					alert("숙박인원은 숫자만 입력 가능합니다.");
+					return;
+				}
+				
 				if (phoneNumber == "") {
 					alert("전화번호를 입력하세요");
 					return;
 				}
 				
+				// phoneNumber 정규식 이용해 010-1111-1111의 형태인지 확인
+				
 				// 예약 추가 AJAX
 				$.ajax({
 					// request
-					type: "post"
+					type: "post" // insert는 무조건 post 수정은 put 조회는 get 삭제는 delete
 					, url: "/booking/add_booking_list"
 					, data: {"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
 					
 					// response
 					, success:function(data) {
 						if (data.result == "성공") {
+							alert("예약되었습니다.");
 							location.href = "/booking/booking_list_view";
+						} else {
+							alert(data.errorMessage);
 						}
 					}
 					, error:function(request, status, error) {

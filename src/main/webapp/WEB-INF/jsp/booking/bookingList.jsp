@@ -44,7 +44,7 @@
 				<c:forEach items="${bookingList}" var="booking">
 					<tr>
 						<td>${booking.name}</td>
-						<td><fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 dd일"/></td>
+						<td><fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 d일"/></td>
 						<td>${booking.day}</td>
 						<td>${booking.headcount}</td>
 						<td>${booking.phoneNumber}</td>
@@ -57,6 +57,7 @@
 							</c:if>
 						</td>
 						<td><button type="button" class="del-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button></td>
+						<!-- a태그로 걸고 type을 버튼으로 해서 추가해도 된다. -->
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -73,20 +74,24 @@
 	
 	<script>
 		$(document).ready(function() {
-			$('.del-btn').on('click', function() {
-				let id = $(this).data('booking-id');
+			// 삭제 버튼 클릭
+			$('.del-btn').on('click', function() { // 어떤 삭제 버튼이 눌려도 이곳으로 들어온다.
+				let id = $(this).data('booking-id'); // 그 삭제 버튼에 있는 booking-id란 data를 변수에 저장
 				
 				$.ajax({
 					// request
-					type:"delete"
-					, url:"/booking/delete_booking"
-					, data:{"bookingId":id}
+					type:"delete" // ajax 폼태그만 요청가능함
+					, url:"/booking/delete_booking" //응답으로 스트링, 제이슨 스트링이 내려옴
+					, data:{"bookingId":id} // bookingId가 키가 된다.
 				
 					//response
-					, success:function(data) {
+					, success:function(data) { // data -> json으로 내려온 응답을 딕셔너리로 만든 것
+						// {"code":1, "result":"성공"}
 						if (data.code == 1) {
+							alert("삭제되었습니다.");
 							location.reload(true);
 						} else {
+							// {"code":500, "errorMessage":"삭제될 데이터가 없습니다."}
 							alert(data.errorMessage);
 						}
 					}

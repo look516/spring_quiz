@@ -9,22 +9,22 @@ import com.quiz.booking.domain.Booking;
 
 @Repository
 public interface BookingMapper {
-	// 리스트
+	// 1) 리스트
 	public List<Booking> selectBookingList();
 	
-	// 예약 삭제
+	// 1) 예약 삭제
 	public int deleteBookingById(int id);
 	
-	// 예약 추가
-	public void insertBookingList(
+	// 2) 예약 추가
+	public int insertBookingList(
 			@Param("name") String name,
 			@Param("date") String date,
 			@Param("day") int day,
 			@Param("headcount") int headcount,
 			@Param("phoneNumber") String phoneNumber);
 	
-	// 예약 조회
-	public Booking selectBookingByNameAndPhoneNumber(
+	// 3) 예약 조회
+	public List<Booking> selectBookingByNameAndPhoneNumber(
 			@Param("name") String name,
 			@Param("phoneNumber") String phoneNumber);
 }

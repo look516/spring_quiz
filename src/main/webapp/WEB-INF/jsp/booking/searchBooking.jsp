@@ -95,7 +95,7 @@
 						return;
 					}
 					
-					
+					// + 010으로 시작 validation
 					
 					// 예약 조회 AJAX
 					$.ajax({
@@ -105,20 +105,24 @@
 						, data: {"name":name, "phoneNumber":phoneNumber}
 					
 						// response
-						, success:function(data) {
-							if (data.result == "성공") { // 위 data와는 다르다.
+						, success:function(data) { // 콜백함수
+							if (data.code == 1) { // 위 data와는 다르다.
+								// 성공
 								//location.href = "/booking/search_booking_view";
-								alert("이름: " + data.name
-										+"\n날짜: " + data.date
-										+"\n일수: " + data.day
-										+"\n인원: " + data.headcount 
-										+"\n상태: " + data.state);
+								alert("이름: " + data.booking.name
+										+"\n날짜: " + data.booking.date.slice(0, 10) // 타임존 문제로 인해 날짜가 잘못나올 수 있음
+										// booking_list_view는 model에 담은 데이터 : 문제없음
+										// search_booking_view는 ajax json으로 내린 데이터 : 잭슨 라이브러리로 객체의 date를 변환해서 내릴 때 문제있음
+										// marobiana.tistory.com/168 참고해서 해결
+										+"\n일수: " + data.booking.day
+										+"\n인원: " + data.booking.headcount 
+										+"\n상태: " + data.booking.state);
 							} else {
 								alert(data.errorMessage);
 							}
 						}
 						, error:function(request, status, error) {
-							alert("예약 내역이 없습니다."); // 조회될 데이터가 없는 경우와 애초에 에러가 난 경우 구분할 방법?
+							alert("조회에 실패했습니다.");
 						}
 					});
 					
