@@ -1,5 +1,6 @@
 package com.quiz.lesson07.entity;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
@@ -20,28 +21,37 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 @Getter
-@Table(name = "company") // 클래스명과 테이블명이 매핑되므로 있어야 한다
+@Table(name = "recruit")
 @Entity
-public class CompanyEntity {
+public class RecruitEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // enum 클래스는 아니되 클래스처럼 사용 가능
 	private int id;
 	
-	private String name;
+	@Column(name = "companyId")
+	private int companyId;
 	
-	private String business;
+	private String position;
 	
-	private String scale;
+	private String responsibilities;
 	
-	private int headcount;
+	private String qualification;
+	
+	private String type;
+	
+	private String region;
+	
+	private int salary;
+	
+	private LocalDate deadline; // 시분초 없음
 	
 	@UpdateTimestamp
 	@Column(name = "createdAt", updatable = false)
-	private ZonedDateTime createdAt;
+	private ZonedDateTime createdAt; // 시분초 있음
 	
-	@UpdateTimestamp // null일 때 DB가 현재 시간으로 채워줌
+	@UpdateTimestamp
 	@Column(name = "updatedAt")
 	private ZonedDateTime updatedAt;
 }

@@ -1,5 +1,7 @@
 package com.quiz.lesson07.bo;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,28 @@ public class CompanyBO {
 				);
 		return company;
 	}
-
+	
+	// input: id, scale, headcount
+	// output: CompanyEntity
+	public CompanyEntity updateCompanyById(int id, String scale, int headcount) {
+		CompanyEntity company = companyRepository.findById(id).orElse(null);
+		return companyRepository.save(
+					company.toBuilder()
+					.scale(scale)
+					.headcount(headcount)
+					.build()
+				);
+	}
+	
+	public void deleteCompanyById(int id) {
+//		CompanyEntity company = companyRepository.findById(id).orElse(null);
+//		if (company != null) {
+//			companyRepository.delete(company);
+//		}
+		
+		Optional<CompanyEntity> companyOptional = companyRepository.findById(id);
+		companyOptional.ifPresent(c -> companyRepository.delete(c));
+		// companyOptional이 있을 때 CompanyEntity 타입의 c라는 객체에서 delete를 수행한다. 
+	}
 
 }
