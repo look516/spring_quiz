@@ -42,7 +42,7 @@ public class Lesson07Quiz02RestController {
 	
 	@GetMapping("/4")
 	public List<RecruitEntity> quiz02_4() {
-		return recruitRepository.findByTypeOrSalaryGreaterThan("정규직", 9000);
+		return recruitRepository.findByTypeOrSalaryGreaterThanEqual("정규직", 9000);
 	}
 	
 	@GetMapping("/5")
@@ -57,6 +57,6 @@ public class Lesson07Quiz02RestController {
 	
 	@GetMapping("/7")
 	public List<RecruitEntity> quiz02_7() {
-		return recruitRepository.findBySalary("2026-04-10", 8100, "정규직");
+		return recruitRepository.findByDeadlineAfterAndSalaryGreaterThanEqualAndTypeOrderBySalaryDesc("2026-04-10", 8100, "정규직");
 	}
 }
